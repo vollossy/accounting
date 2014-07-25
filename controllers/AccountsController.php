@@ -3,6 +3,7 @@ namespace app\controllers;
 
 
 use app\models\ar\Account;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -25,6 +26,17 @@ class AccountsController extends Controller{
             }
         }
         return $this->render('create', array('model' => $account));
+    }
+
+    /**
+     * @return string
+     * Просмотр списка
+     */
+    public function actionList()
+    {
+        $query = Account::find()->orderBy('serial ASC');
+        $dp = new ActiveDataProvider(['query'=>$query]);
+        return $this->render('list', ['dp' => $dp]);
     }
 
     /**

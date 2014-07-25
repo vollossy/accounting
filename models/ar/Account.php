@@ -2,6 +2,8 @@
 namespace app\models\ar;
 
 use app\components\AccountQuery;
+use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -47,6 +49,9 @@ class Account extends ActiveRecord{
         ]);
     }
 
+    /**
+     * @return AccountQuery|object|\yii\db\ActiveQueryInterface|static
+     */
     public static function find()
     {
         return new AccountQuery(get_called_class());
@@ -63,5 +68,19 @@ class Account extends ActiveRecord{
         ]);
     }
 
+    /**
+     * Возвращает провайдер данных для транзакций, связанных с текущим счетом.
+     *
+     * Вообще можно было сделать и через SQlDataProvider, вынеся логику формирования того, какой это тип перевода и
+     * отображение связанного счета
+     */
+    public function getTransactionsDp()
+    {
+        /** @var ActiveQuery $query */
+        $query = Transaction::find();
+        $query->orderBy('datetime DESC');
+        $query->where('"from" = :id OR "to" = :id', [':id' => $this->serial]);
 
+        return new ActiveDataProvider(['query'=>$query]);
+    }
 }
