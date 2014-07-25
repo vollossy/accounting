@@ -14,16 +14,14 @@ class m140725_051529_init_db extends Migration
         $this->createTable('accounts', [
             'client' => 'string NOT NULL',
             'serial' => 'int NOT NULL',
-            'balance' => 'float NOT NULL DEFAULT 0',
+            'balance' => 'money NOT NULL DEFAULT 0',
         ]);
         $this->addPrimaryKey('pk_serial', 'accounts', 'serial');
         $this->insert('accounts', ['client' => 'Наша фирма', 'serial' => 0]);
     }
 
-    public function down()
+    public function safeDown()
     {
-        echo "m140725_051529_init_db cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('accounts');
     }
 }

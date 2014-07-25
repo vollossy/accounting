@@ -30,6 +30,7 @@ class AccountsController extends Controller{
     /**
      * Просмотр информации о счете, а также списка транзакций, совершенных по данному счету
      * @param $id
+     * @return string
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView($id)
