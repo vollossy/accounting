@@ -12,6 +12,8 @@ use yii\web\NotFoundHttpException;
  */
 class AccountsController extends Controller{
 
+    public $defaultAction = 'list';
+
     /**
      * Добавляет запись о счете в бд
      */

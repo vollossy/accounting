@@ -12,6 +12,15 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Tfl9RnlqxyoNaHlOO_AacsVjMFdA6E-8',
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'createAccount' => 'accounts/create',
+                'transfer' => 'transactions/create',
+                'accounts/<id:\d+>' => 'accounts/view'
+            ]
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
